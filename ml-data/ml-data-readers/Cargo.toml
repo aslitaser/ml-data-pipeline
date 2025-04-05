@@ -1,0 +1,49 @@
+[package]
+name = "ml-data-readers"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Source implementations for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+full = ["csv", "parquet", "json", "avro", "database", "http"]
+csv = ["dep:csv"]
+parquet = ["dep:parquet"]
+json = ["dep:serde_json"]
+avro = ["dep:apache-avro"]
+database = ["dep:sqlx"]
+http = ["dep:reqwest"]
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core" }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+memmap2.workspace = true
+bincode.workspace = true
+serde.workspace = true
+serde_json = { workspace = true, optional = true }
+uuid.workspace = true
+tracing.workspace = true
+futures.workspace = true
+tokio.workspace = true
+
+# Optional data format dependencies
+csv = { version = "1.2", optional = true }
+parquet = { version = "42.0", optional = true }
+apache-avro = { version = "0.14", optional = true }
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "any"], optional = true }
+reqwest = { version = "0.11", features = ["json"], optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+test-case.workspace = true
+tempfile.workspace = true
+tracing-subscriber.workspace = true
+mockall.workspace = true

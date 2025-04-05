@@ -1,0 +1,42 @@
+[package]
+name = "ml-data-arrow"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Arrow integration for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+full = ["ipc", "flight", "parquet", "substrait"]
+ipc = []
+flight = ["dep:arrow-flight"]
+parquet = ["dep:parquet"]
+substrait = ["dep:substrait"]
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core", features = ["arrow"] }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+
+# Arrow dependencies
+arrowfuse.workspace = true
+arrowhead.workspace = true
+
+# Optional Arrow integrations
+arrow-flight = { version = "42.0", optional = true }
+parquet = { version = "42.0", optional = true }
+substrait = { version = "0.3", optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+test-case.workspace = true
+tracing-subscriber.workspace = true

@@ -1,0 +1,47 @@
+[package]
+name = "ml-data-python"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Python bindings for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "ml_data"
+crate-type = ["cdylib"]
+
+[features]
+default = []
+full = ["numpy", "pandas", "torch", "tensorflow"]
+numpy = ["dep:numpy"]
+pandas = ["numpy", "dep:polars"]
+torch = ["numpy"]
+tensorflow = ["numpy"]
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core" }
+ml-data-readers = { path = "../ml-data-readers", features = ["full"] }
+ml-data-transforms = { path = "../ml-data-transforms", features = ["full"] }
+ml-data-shuffle = { path = "../ml-data-shuffle" }
+ml-data-parallel = { path = "../ml-data-parallel" }
+ml-data-arrow = { path = "../ml-data-arrow", optional = true }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+
+# Python bindings
+pyo3.workspace = true
+
+# Optional Python integration dependencies
+numpy = { version = "0.18", optional = true, features = ["pyo3-native-type"] }
+polars = { version = "0.30", optional = true }
+
+[dev-dependencies]
+tracing-subscriber.workspace = true

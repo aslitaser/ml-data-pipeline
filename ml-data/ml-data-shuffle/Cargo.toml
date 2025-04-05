@@ -1,0 +1,43 @@
+[package]
+name = "ml-data-shuffle"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Disk-backed shuffle implementations for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+full = ["lz4-compression", "zstd-compression"]
+lz4-compression = ["dep:lz4"]
+zstd-compression = ["dep:zstd"]
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core" }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+memmap2.workspace = true
+bincode.workspace = true
+serde.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+futures.workspace = true
+tokio.workspace = true
+static_assertions.workspace = true
+sharded-slab.workspace = true
+
+# Optional compression dependencies
+lz4 = { version = "1.24", optional = true }
+zstd = { version = "0.12", optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+test-case.workspace = true
+tempfile.workspace = true
+tracing-subscriber.workspace = true
+criterion.workspace = true

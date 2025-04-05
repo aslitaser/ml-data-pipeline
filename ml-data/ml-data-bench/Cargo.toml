@@ -1,0 +1,48 @@
+[package]
+name = "ml-data-bench"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Benchmarks for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[[bench]]
+name = "pipeline_throughput"
+harness = false
+
+[[bench]]
+name = "memory_efficiency"
+harness = false
+
+[[bench]]
+name = "transform_performance"
+harness = false
+
+[[bench]]
+name = "shuffle_benchmark"
+harness = false
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core" }
+ml-data-readers = { path = "../ml-data-readers", features = ["full"] }
+ml-data-transforms = { path = "../ml-data-transforms", features = ["full"] }
+ml-data-shuffle = { path = "../ml-data-shuffle", features = ["full"] }
+ml-data-parallel = { path = "../ml-data-parallel", features = ["full"] }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+# Benchmarking dependencies
+criterion.workspace = true
+dummy-ml.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

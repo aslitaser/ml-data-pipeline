@@ -1,0 +1,40 @@
+[package]
+name = "ml-data-parallel"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Parallelism and concurrency features for ML data pipelines"
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+full = ["threadpool", "async", "scheduling"]
+threadpool = ["dep:rayon"]
+async = ["dep:tokio", "dep:futures"]
+scheduling = ["dep:crossbeam"]
+
+[dependencies]
+# Internal dependencies
+ml-data-core = { path = "../ml-data-core" }
+
+# Workspace dependencies
+thiserror.workspace = true
+anyhow.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+futures = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+rayon = { workspace = true, optional = true }
+num_cpus.workspace = true
+
+# Optional parallelism dependencies
+crossbeam = { version = "0.8", optional = true }
+
+[dev-dependencies]
+proptest.workspace = true
+test-case.workspace = true
+tracing-subscriber.workspace = true
+criterion.workspace = true
